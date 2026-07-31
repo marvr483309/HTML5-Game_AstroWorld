@@ -132,17 +132,17 @@ const quitGameOverlay = document.getElementById("quitGameOverlay");
       const dialogue = [
         {
           speaker: "Astria",
-          portrait: "Assets/Astria-Talking-250x250.png",
+          portrait: "Astria-Talking-250x250.png",
           text: "Crap, the alarm wasn't supposed to go off yet!"
         },
         {
           speaker: "Guard",
-          portrait: "Assets/Guard-Still-250x250.png",
+          portrait: "Guard-Still-250x250.png",
           text: "Hey! Stop right there!"
         },
         {
           speaker: "Astria",
-          portrait: "Assets/Astria-Silent-250x250.png",
+          portrait: "Astria-Silent-250x250.png",
           text: "..."
         }];
 
