@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AstroWorld START GAME Menu</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+<div id="cursor"></div>
+<img id="title" src="AstroWorld-Icon.png">
+<audio id="mainMusic" src="Assets/main-music.m4a" muted></audio>
+
+<div class="menu">
+  <button class="buttons" id="newGame">New Game</button>
+  <button class="buttons" id="loadGame">Load Save</button>
+  <button class="buttons" id="settings">Settings</button>
+  <button class="buttons" id="quitGame">Quit Game</button>
+</div>
+
+<div id="newGameOverlay" class="overlay hidden">
+  <button onclick="closeOverlay('newGameOverlay')">Return</button>
+  
+  <div class="scrollText">
+  <h1>Welcome to AstroWorld</h1>
+  <p>Once upon a time, there lived a kingdom in a galaxy far, far away. 
+    This kingdom was one of such great prosperity, its inhabitants were 
+    envied by all the other celestial civilizations around them.  
+    What they didn’t know, however, was that the Kingdom of Nllamnis hid 
+    the dark truth about their apparent opulence. This story is one of 
+    perseverance, sacrifice, and things that aren’t as they seem…but it’s 
+    also a testament to the power of strong bonds and finding out who 
+    you’re destined to be.</p>
+  </div>
+   <div id="cutsceneProceed" class="continueButtons hidden">Press any button to proceed.</div>
+</div>
+
+<div id="cutsceneOverlay" class="overlay hidden">
+  <audio id="alarmSound" src="Assets/alarm-sfx.mp3"></audio>
+  <div id="dialogueBox" style="display:none;">
+    <img id="portrait">
+    <h2 id="namePlate"></h2>
+    <p id="dialogueText"></p>
+  </div>
+</div>
+
+<div id="guideOverlay" class="overlay hidden">
+  <img id="chaseGuide" src="Assets/placeholder.jpg">
+  <audio id="mainMusic" src="Assets/main-music.m4a"></audio>
+  <div id="chaseProceed" class="continueButtons hidden">Press any button to proceed.</div>
+</div>
+
+<div id="chaseOverlay" class="overlay hidden">
+  <div id="player"></div>
+  <div id="obstacleContainer"> </div>
+  <audio id="chaseMusic" src="Assets/chase-music.m4a"></audio>
+</div>
+
+<div id="loadGameOverlay" class="overlay hidden">
+  <button onclick="closeOverlay('loadGameOverlay')">Return</button>
+  <h2>hello. i am a placeholder.</h2>
+</div>
+
+<div id="settingsOverlay" class="overlay hidden">
+  <button onclick="closeOverlay('settingsOverlay')">Return</button>
+  
+  <section class="tab">
+        <button class="tablinks"
+          onclick="openSetting(event, 'General')" 
+          id="defaultOpen">General</button>
+        <button class="tablinks"
+        onclick="openSetting(event, 'Graphics')"
+        id="defaultOpen">Graphics</button>
+        <button class="tablinks"
+        onclick="openSetting(event, 'Audio')"
+        id="defaultOpen">Audio</button>
+        <button class="tablinks"
+        onclick="openSetting(event, 'Controls')" 
+        id="defaultOpen">Controls</button>
+  </section>
+
+  <section class="tabcontent">
+    <div id="General">
+      <label class="switch">
+        <input type="checkbox">
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div id="Graphics">
+      <label class="switch">
+        <input type="checkbox">
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div id="Audio">
+      <label class="switch">
+        <input type="checkbox">
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div id="Controls">
+      <label class="switch">
+        <input type="checkbox">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </section>
+</div>
+
+<div id="disclaimer">Warning: There are flashing lights throughout this experience. It may not be suitable for players with photosensitive epilepsy.</div>
+<footer>
+  <div class="footerBottom">
+    <p>MarvStudios © 2026</p>
+  </div>
+</footer>
+
+</body>
+</html>
