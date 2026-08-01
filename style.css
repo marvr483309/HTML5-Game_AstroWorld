@@ -1,5 +1,5 @@
 body {
-   background-image: url('SPACE-BACKGROUND.gif'); 
+   background-image: url('C:/Users/melra/OneDrive/Documents/Summer 2026/DIG2500/final-project/Assets/SPACE-BACKGROUND.gif'); 
    background-repeat: no-repeat; 
    background-size: cover;
    cursor: none;
@@ -37,7 +37,7 @@ body {
   background-size: contain;
   position: fixed;
   pointer-events: none;
-  z-index: 10000;
+  z-index: 200000;
 }
 
 .menu {
@@ -91,7 +91,7 @@ cursor: none;
     padding-left: 5px;
   }
   .buttons:after {
-    content: url('pixel-heart.png');
+    content: url(Assets/pixel-heart.png);
     position: absolute;
     opacity: 0;
     top: 15px;
@@ -230,7 +230,7 @@ cursor: none;
     }
 
 #guideOverlay {
-  background-image: url('chase-backdrop.gif');
+  background-image: url(Assets/chase-backdrop.gif);
   background-repeat: no-repeat; 
   background-size: cover;
   cursor: none;
@@ -246,7 +246,7 @@ cursor: none;
 #chaseOverlay {
   width: 100%;
   height: 100%;
-  background-image: url('chase-backdrop.gif');
+  background-image: url(Assets/chase-backdrop.gif);
   overflow: hidden;
   cursor: none;
   z-index: 9999;
@@ -257,7 +257,7 @@ cursor: none;
     left: 50%;
     width: 120px;
     height: 120px;
-    background-image: url('player-icon.png');
+    background-image: url(Assets/player-icon.png);
     background-repeat: no-repeat;
     transform: translateX(-50%);
   }
@@ -267,16 +267,66 @@ cursor: none;
     top: -100px;
     width: 120px;
     height: 120px;
-    background-image: url('meteor-obs.png')
+    background-image: url(Assets/meteor-obs.png)
+}
+#countdownTimer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 72px;
+  font-weight: bolder;
+  color: white;
+  z-index: 10000;
 }
 
-/*Load Save*/
+#loseOverlay {
+  background-color: rgb(0, 0, 0);
+  z-index: 10200;
+  justify-content: center;
+  align-items: center;
+}
+  .retryBox {
+    background-color: rgb(190, 150, 255);
+    border: 2px solid rgba(130, 53, 255);
+    color: aliceblue;
+    padding: 40px;
+    text-align: center;
+    font-size: 28px;
+  }
+
+  .retryBox button {
+    margin: 20px;
+    padding: 20px 40px;
+    font-size: 20px;
+  }
+  #winOverlay {
+    background-color: rgb(0, 0, 0);
+    z-index: 10200;
+    justify-content: center;
+    align-items: center;
+  }
+    .winBox {
+      background-color: rgb(190, 150, 255);
+      border: 2px solid rgba(130, 53, 255);
+      color: aliceblue;
+      padding: 40px;
+      text-align: center;
+      font-size: 28px;
+    }
+    .winBox button {
+      margin: 20px;
+      padding: 20px 40px;
+      font-size: 20px;
+    }
+
+    /*Load Save*/
 #loadGameOverlay {
   width: 600px;
   height: auto;
   margin: 100px auto 0 auto;
   display: hidden;
-  background-image: url('placeholder.jpg');
+  background-image: url(placeholder.jpg);
   z-index: 9000;
   }
 
