@@ -20,7 +20,7 @@
 </div>
 
 <div id="newGameOverlay" class="overlay hidden">
-  <button onclick="closeOverlay('newGameOverlay')">Return</button>
+  <button id="newGameReturn" class="buttons">Return</button>
   
   <div class="scrollText">
   <h1>Welcome to AstroWorld</h1>
@@ -46,7 +46,7 @@
 </div>
 
 <div id="guideOverlay" class="overlay hidden">
-  <img id="chaseGuide" src="Assets/placeholder.jpg">
+  <img id="chaseGuide" src="Assets/Guide-Poster.gif">
   <audio id="mainMusic" src="Assets/main-music.m4a"></audio>
   <div id="chaseProceed" class="continueButtons hidden">Press any button to proceed.</div>
 </div>
@@ -60,29 +60,27 @@
 
 <div id="loseOverlay" class="overlay hidden">
   <div class="retryBox">
-  <h3>The guards caught up to you!</h3>
+  <h3>Oh no! The guards caught up to you!</h3>
   <p>Would you like to try again?</p>
-    <button id="retryButton">Retry</button>
-    <button id="loseReturn">Return to Main Menu</button>
+    <button id="loseReturn">Retry</button>
   </div>
 </div>
 
 <div id="winOverlay" class="overlay hidden">
   <div class="winBox">
-  <h3>You managed to escape the guards!</h3>
-  <p>Would you like to return to the main menu?</p>
-    <button id="winReturn">Return to Main Menu</button>
+  <h3> Good job! You managed to escape the guards!</h3>
+  <p>You've reached the end of this game. Thank you for playing!</p>
     <button id="winExit">Exit</button>
   </div>
 </div>
 
 <div id="loadGameOverlay" class="overlay hidden">
-  <button onclick="closeOverlay('loadGameOverlay')">Return</button>
+  <button id="loadGameReturn" class="buttons">Return</button>
   <h2>hello. i am a placeholder.</h2>
 </div>
 
 <div id="settingsOverlay" class="overlay hidden">
-  <button onclick="closeOverlay('settingsOverlay')">Return</button>
+  <button id="settingsReturn" class="buttons">Return</button>
   
   <section class="tab">
         <button class="tablinks"
@@ -125,6 +123,10 @@
       </label>
     </div>
   </section>
+</div>
+
+<div id="quitGameOverlay" class="overlay hidden">
+  <button onclick="quitGame()">Quit Game</button>
 </div>
 
 <div id="disclaimer">Warning: There are flashing lights throughout this experience. It may not be suitable for players with photosensitive epilepsy.</div>
