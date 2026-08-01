@@ -7,6 +7,7 @@ let playerX= 50;
 let playerY = 0;
 let chaseActive = false;
 let obstacleInterval;
+let chaseMusic;
 
 //Cursor
 document.addEventListener('mousemove', (e) => {
@@ -50,21 +51,31 @@ const quitGameOverlay = document.getElementById("quitGameOverlay");
       const cutsceneOverlay = document.getElementById("cutsceneOverlay");
       const chaseProceed = document.getElementById("chaseProceed");
 
+// Starts Cutscene After User Clicks "New Game"
       document.getElementById("newGame").addEventListener("click", () => {
         newGameOverlay.classList.remove("hidden");
 
+      document.getElementById("newGameReturn").addEventListener("click", () => {
+        newGameOverlay.classList.add("hidden");
+    });
+        scrollText.style.transition = "none";
+        scrollText.style.bottom = "-20%";
+        scrollText.offsetHeight;
+        scrollText.style.transition = "bottom 25s ease-out";
+        scrollText.classList.remove("hidden");
         scrollText.addEventListener("transitionend", () => {
           cutsceneProceed.style.display = "block";
           enableProceedListener();
-        });
-
-        scrollText.style.bottom = "-20%";
+        }, {once: true});
 
         requestAnimationFrame(() => {
         scrollText.style.bottom ="120%";
         });
       });
-
+// ScrollText Scene That Leads into Dialogue Scene
+function enableProceedListener() {
+  document.addEventListener("keydown", proceedHandler, {once: true});
+}
       function proceedHandler() {
         newGameOverlay.classList.add("hidden");
         cutsceneOverlay.classList.remove("hidden");
@@ -87,14 +98,14 @@ const quitGameOverlay = document.getElementById("quitGameOverlay");
         
         setTimeout(() => {
           dialogueActive = true;
+          document.addEventListener("keydown", finalDialogueLine);
           document.getElementById("dialogueBox").style.display ="block";
           startTyping(dialogue[line]);
         }, 4000);
-          document.removeEventListener("keydown", proceedHandler);
-        }
-
+      }
+//**** */
       function enableProceedListener() {
-        document.addEventListener("keydown", proceedHandler);
+        document.addEventListener("keydown", proceedHandler, {once: true});
       }
 
       function startScene(cutsceneOverlay) {
@@ -146,8 +157,6 @@ const quitGameOverlay = document.getElementById("quitGameOverlay");
           text: "..."
         }];
 
-    document.addEventListener("keydown", finalDialogueLine);
-
       function finalDialogueLine() {
         if(!dialogueActive) return;
 
@@ -171,8 +180,7 @@ const quitGameOverlay = document.getElementById("quitGameOverlay");
         alarmSound.currentTime = 0;
         cutsceneOverlay.classList.remove("alarmActive");
           
-      // Continue to Next Scene
-        newGameOverlay.classList.add("hidden");
+      // Continue to Guide Overlay
         cutsceneOverlay.classList.add("hidden");
         guideOverlay.classList.remove("hidden");
         chaseProceed.classList.remove("hidden");
@@ -183,26 +191,26 @@ const quitGameOverlay = document.getElementById("quitGameOverlay");
           mainMusic.play();
         
         document.removeEventListener("keydown", finalDialogueLine);
-        document.removeEventListener("keydown", proceedHandler);
-        document.removeEventListener("keydown", startChase);
-          setTimeout(() => {
-            document.addEventListener("keydown", startChase, {once: true});
-          }, 1500);
-        }
+        document.addEventListener("keydown", startChase, {once: true});
       }
+    }
 
+// Chase Sequence Starts
       const obstacleContainer = document.getElementById("obstacleContainer");
       const chaseOverlay = document.getElementById("chaseOverlay");
       let countdown = 20;
       let countdownInterval;
+      
 
     function startChase() {
       chaseActive = true;
-      document.removeEventListener("keydown", startChase);
       guideOverlay.classList.add("hidden");
       chaseOverlay.classList.remove("hidden");
+      document.getElementById("cursor").style.display = "none";
 
-    const chaseMusic = document.getElementById("chaseMusic");
+          alarmSound = document.getElementById("alarmSound");
+            alarmSound.muted = true;
+          chaseMusic = document.getElementById("chaseMusic");
           mainMusic.pause()
           chaseMusic.loop = true;
           chaseMusic.volume = 0.5;
@@ -281,29 +289,16 @@ const countdownTimer = document.getElementById("countdownTimer");
         }
     }
 
-  const loseOverlay = document.getElementById("loseOverlay");
-  const winOverlay = document.getElementById("winOverlay");
+const loseOverlay = document.getElementById("loseOverlay");
+const winOverlay = document.getElementById("winOverlay");
 
-    document.getElementById("retryButton").addEventListener("click", () => {
-      loseOverlay.classList.add("hidden");
-      countdown = 20;
-      //Restarts Chase
-      startChase();
-  });
     document.getElementById("loseReturn").addEventListener("click", () => {
       loseOverlay.classList.add("hidden");
-      // Returns to Main Menu
-      chaseOverlay.classList.add("hidden");
+      countdown = 20;
+      startChase();
     });
-    document.getElementById("winReturn").addEventListener("click", () => {
-      winOverlay.classList.add("hidden");
-      // Returns to Main Menu
-      chaseOverlay.classList.add("hidden");
-    });
-    document.getElementById("winExit").addEventListener("click", (quitGame) => {
-      function quitGame() { 
+    document.getElementById("winExit").addEventListener("click", () => {
         window.close();
-      }
     });
 
     function endChase(success) {
@@ -312,6 +307,7 @@ const countdownTimer = document.getElementById("countdownTimer");
       clearInterval(countdownInterval);
       chaseMusic.pause();
       obstacleContainer.innerHTML = "";
+      document.getElementById("cursor").style.display = "block";
 
       document.removeEventListener("keydown", chaseMovement);
       document.getElementById("countdownTimer").classList.add("hidden");
@@ -323,11 +319,17 @@ const countdownTimer = document.getElementById("countdownTimer");
   }
 
 document.getElementById("loadGame").addEventListener("click", () => {
-  openOverlay("loadGameOverlay")
+  loadGameOverlay.classList.remove("hidden");
   });
+ document.getElementById("loadGameReturn").addEventListener("click", () => {
+        loadGameOverlay.classList.add("hidden");
+    });
 document.getElementById("settings").addEventListener("click", () => {
-  openOverlay("settingsOverlay")
+  settingsOverlay.classList.remove("hidden");
   });
+   document.getElementById("settingsReturn").addEventListener("click", () => {
+        settingsOverlay.classList.add("hidden");
+    });
 document.getElementById("quitGame").addEventListener("click", quitGame);
   
   function quitGame() {
