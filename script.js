@@ -4,6 +4,7 @@ let alarmSound;
 let dialogueActive = false;
 let player;
 let playerX= 50;
+let playerY = 0;
 let chaseActive = false;
 let obstacleInterval;
 
@@ -38,7 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
       })
       .catch(err => console.error("Music failed:", err));
   }
-
 const newGameOverlay = document.getElementById("newGameOverlay");
 const guideOverlay = document.getElementById("guideOverlay");
 const loadGameOverlay = document.getElementById("loadGameOverlay");
@@ -132,17 +132,17 @@ const quitGameOverlay = document.getElementById("quitGameOverlay");
       const dialogue = [
         {
           speaker: "Astria",
-          portrait: "Astria-Talking-250x250.png",
+          portrait: "Assets/Astria-Talking-250x250.png",
           text: "Crap, the alarm wasn't supposed to go off yet!"
         },
         {
           speaker: "Guard",
-          portrait: "Guard-Still-250x250.png",
+          portrait: "Assets/Guard-Still-250x250.png",
           text: "Hey! Stop right there!"
         },
         {
           speaker: "Astria",
-          portrait: "Astria-Silent-250x250.png",
+          portrait: "Assets/Astria-Silent-250x250.png",
           text: "..."
         }];
 
@@ -193,6 +193,8 @@ const quitGameOverlay = document.getElementById("quitGameOverlay");
 
       const obstacleContainer = document.getElementById("obstacleContainer");
       const chaseOverlay = document.getElementById("chaseOverlay");
+      let countdown = 20;
+      let countdownInterval;
 
     function startChase() {
       chaseActive = true;
@@ -211,7 +213,22 @@ const quitGameOverlay = document.getElementById("quitGameOverlay");
       obstacleInterval = setInterval(spawnObstacle, 1200);
 
       document.addEventListener("keydown", chaseMovement);
-    }
+      //Unhide Timer
+const countdownTimer = document.getElementById("countdownTimer");
+      countdownTimer.classList.remove("hidden");
+      countdown = 20;
+      countdownTimer.textContent = countdown;
+
+      //Start Countdown
+      countdownInterval = setInterval(() => {
+        countdown--;
+        countdownTimer.textContent = countdown;
+        if(countdown <= 0) {
+          clearInterval(countdownInterval);
+          endChase(true); // Player won the chase
+        }
+      }, 1000);
+  }
   // Player Movement
     function chaseMovement(e) {
       if (!chaseActive) return;
@@ -226,7 +243,9 @@ const quitGameOverlay = document.getElementById("quitGameOverlay");
         playerY -= 5;
       }
         playerX = Math.max(5, Math.min(95, playerX));
-        player.style.left = playerX + "%";
+          player.style.left = playerX + "%";
+        playerY = Math.max(5, Math.min(95, playerY));
+          player.style.bottom = playerY + "%";
     }
 
     function spawnObstacle() {
@@ -262,25 +281,47 @@ const quitGameOverlay = document.getElementById("quitGameOverlay");
         }
     }
 
+  const loseOverlay = document.getElementById("loseOverlay");
+  const winOverlay = document.getElementById("winOverlay");
+
+    document.getElementById("retryButton").addEventListener("click", () => {
+      loseOverlay.classList.add("hidden");
+      countdown = 20;
+      //Restarts Chase
+      startChase();
+  });
+    document.getElementById("loseReturn").addEventListener("click", () => {
+      loseOverlay.classList.add("hidden");
+      // Returns to Main Menu
+      chaseOverlay.classList.add("hidden");
+    });
+    document.getElementById("winReturn").addEventListener("click", () => {
+      winOverlay.classList.add("hidden");
+      // Returns to Main Menu
+      chaseOverlay.classList.add("hidden");
+    });
+    document.getElementById("winExit").addEventListener("click", (quitGame) => {
+      function quitGame() { 
+        window.close();
+      }
+    });
+
     function endChase(success) {
       chaseActive = false;
       clearInterval(obstacleInterval);
+      clearInterval(countdownInterval);
+      chaseMusic.pause();
       obstacleContainer.innerHTML = "";
 
       document.removeEventListener("keydown", chaseMovement);
+      document.getElementById("countdownTimer").classList.add("hidden");
         if(!success) {
-          alert("You got caught! Would you like to retry?");
-            if(answer) {
-              function startChase() {
-              return;
-            }
+          loseOverlay.classList.remove("hidden");
         } else {
-          alert("You managed to escape the guards! Would you like to save your progress here?");
+          winOverlay.classList.remove("hidden");
         }
-      chaseOverlay.classList.add("hidden");
-    }
   }
-    
+
 document.getElementById("loadGame").addEventListener("click", () => {
   openOverlay("loadGameOverlay")
   });
