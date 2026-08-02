@@ -103,11 +103,6 @@ function enableProceedListener() {
           startTyping(dialogue[line]);
         }, 4000);
       }
-//**** */
-      function enableProceedListener() {
-        document.addEventListener("keydown", proceedHandler, {once: true});
-      }
-
       function startScene(cutsceneOverlay) {
         document.getElementById(cutsceneOverlay).style.display ="block";
       }
@@ -294,7 +289,6 @@ const winOverlay = document.getElementById("winOverlay");
 
     document.getElementById("loseReturn").addEventListener("click", () => {
       loseOverlay.classList.add("hidden");
-      countdown = 20;
       startChase();
     });
     document.getElementById("winExit").addEventListener("click", () => {
